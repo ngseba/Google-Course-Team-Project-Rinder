@@ -9,7 +9,6 @@ function App() {
         window.location.pathname === "/" ? <Redirect to="/main"/> : undefined;
     return (
         <Router>
-
             <Switch>
                 <Route path={"/main"} exact component={MainComponent}/>
             </Switch>
