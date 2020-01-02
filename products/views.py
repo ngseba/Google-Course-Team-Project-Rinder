@@ -6,4 +6,4 @@ from django.http import JsonResponse
 
 def get_products(request) :
     product_list = Product.objects.all().values()
-    return JsonResponse({"models_to_return": list(product_list)})
+    return JsonResponse (list(product_list), safe=False)
