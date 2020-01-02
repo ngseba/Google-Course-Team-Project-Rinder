@@ -28,7 +28,13 @@ class MainComponent extends React.Component {
     }
 
     onClickMyFunction = () => {
-
+        axiosInstance.post("save_product/","{'abc':'da'}").then(
+            () => {
+                console.log("Hello")
+            }
+        ).catch((error)=> {
+            console.log(error)
+          })
     };
 
 
