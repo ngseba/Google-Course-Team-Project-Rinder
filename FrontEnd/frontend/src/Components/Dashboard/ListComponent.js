@@ -20,7 +20,7 @@ const ListComponent = (props) => {
                 />
                 <ListItemText primary={resolution.name}/>
                 <ListItemSecondaryAction>
-                    <IconButton edge="end" aria-label="update" onClick = {() => props.updateResolution(resolution)}>
+                    <IconButton  edge="end" aria-label="update" onClick = {() => props.updateResolution(resolution)}>
                         <EditIcon />
                     </IconButton>
 

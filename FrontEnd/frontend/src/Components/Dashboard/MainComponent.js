@@ -12,6 +12,10 @@ import {mainStyles} from "./mainStyles";
 import {withStyles} from "@material-ui/core/styles";
 import DialogAddNewResolution from "./DialogAddNewResolution";
 import DialogUpdateName from "./DialogUpdateName";
+import Grid from "@material-ui/core/Grid";
+import IconButton from "@material-ui/core/IconButton";
+import AccessibilityNewIcon from '@material-ui/icons/AccessibilityNew';
+import Avatar from "@material-ui/core/Avatar";
 
 
 class MainComponent extends React.Component {
@@ -40,11 +44,9 @@ class MainComponent extends React.Component {
     };
 
 
-
     componentDidMount() {
         this.refreshValues();
     }
-
 
     handleChange = (id) => {
         axiosInstance.put(UPDATE_RESOLUTIONS_DONE + id).then(() => {
@@ -92,7 +94,6 @@ class MainComponent extends React.Component {
     };
 
     deleteResolution = (id) => {
-        let resolutionsAPI = [];
         axiosInstance.delete(DELETE_RESOLUTION + id).then(() => {
             this.refreshValues()
 
@@ -102,18 +103,40 @@ class MainComponent extends React.Component {
         )
     };
 
+    handleRedirect = () => {
+        window.location.href = "/main/matching"
+    };
 
     render() {
         const {classes} = this.props;
         return (
             <React.Fragment>
-                <AppBar position="static">
-                    <Toolbar>
-                        <Typography variant="h6">
-                            Your resolutions
-                        </Typography>
-                    </Toolbar>
-                </AppBar>
+                <div className={classes.root}>
+                    <AppBar position="static">
+                        <Grid>
+                            <Toolbar>
+
+                                <Typography className={classes.title2} variant="h6">
+                                    Your resolutions
+                                </Typography>
+
+                                <IconButton size ="small" edge="end" aria-label="" className={classes.title}>
+                                    <AccessibilityNewIcon fontSize="large" color="secondary"
+                                                          onClick={this.handleRedirect}/>
+                                </IconButton>
+                                <IconButton  size ="small" edge="end" aria-label="" className={classes.title}>
+                                    <Avatar className={classes.avatar}>
+                                        {//TODO INSERT NAME HERE
+                                            //
+                                        }
+                                        LB
+                                    </Avatar>
+                                </IconButton>
+
+                            </Toolbar>
+                        </Grid>
+                    </AppBar>
+                </div>
                 <List>
                     <ListComponent list={this.state.resolutions}
                                    handleChange={this.handleChange}
@@ -127,7 +150,7 @@ class MainComponent extends React.Component {
                 </Fab>
                 <DialogAddNewResolution openModal={this.state.openModal} openModalChange={this.changeModalState}/>
                 <DialogUpdateName openModal={this.state.openModalEdit.open} idUpdate={this.state.openModalEdit.id}
-                                  openModalChange={this.handleEditModal}  texts = {this.state.resolutionEdit}/>
+                                  openModalChange={this.handleEditModal} texts={this.state.resolutionEdit}/>
 
             </React.Fragment>
         )
