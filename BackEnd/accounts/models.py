@@ -19,7 +19,7 @@ class UserManager(BaseUserManager) :
         user.save()
         return user
         
-    def create_superuser(self,email,password = None):
+    def create_superuser(self, email,password = None):
         if not email:
             raise ValueError("Users must have an email adress")
         user = self.model(
