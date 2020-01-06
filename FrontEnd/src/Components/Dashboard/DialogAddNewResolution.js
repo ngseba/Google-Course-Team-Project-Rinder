@@ -23,7 +23,7 @@ class DialogAddNewResolution extends React.Component {
 
 
     handleAdd = () => {
-        axiosInstance.post(CREATE_RESOLUTION, {"tags": tags, "name": resolution, "id": 3}).then(() => {
+        axiosInstance.post(CREATE_RESOLUTION, {"tags": tags, "name": resolution, "id": 1}).then(() => {
             this.props.openModalChange();
 
 
