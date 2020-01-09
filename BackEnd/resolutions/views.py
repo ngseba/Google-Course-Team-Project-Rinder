@@ -7,8 +7,9 @@ import json
 
 
 # Create your views here.
-def get_resolutions(request):
-    product_list = Resolution.objects.all().values()
+def get_resolutions(request, id):
+    user = User.objects.only('id').get(id = id)
+    product_list = Resolution.objects.filter(id_user=user).values()
     return JsonResponse(list(product_list), safe=False)
 
 
