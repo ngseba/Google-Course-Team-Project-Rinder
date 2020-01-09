@@ -4,7 +4,9 @@ import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom
 import MainComponent from "./Components/Dashboard/MainComponent";
 import MatchingComponent from "./Components/MatchingMenu/MatchingComponent";
 
-import LoginComponent from './Components/Login/LoginComponent'
+import LoginComponent from './Components/Accounts/LoginComponent';
+import RegisterComponent from './Components/Accounts/RegisterComponent';
+
 
 function App() {
     const defaultRoute =
@@ -16,6 +18,8 @@ function App() {
                 <Route path={"/main/matching"} exact component = {MatchingComponent}/>
                 <Route path = {"/main"} exact component={MainComponent}/>
                 <Route path = {"/login"} component = {LoginComponent}/>
+                <Route path = {"/register"} component = {RegisterComponent}/>
+                
             </Switch>
             {defaultRoute}
         </Router>
