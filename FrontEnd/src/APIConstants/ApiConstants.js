@@ -4,5 +4,5 @@ export const CREATE_RESOLUTION = 'resolution/create_resolution/';
 export const UPDATE_RESOLUTIONS_NAME = 'resolution/update_resolution_name/';
 export const DELETE_RESOLUTION = 'resolution/delete_resolution/';
 export const POST_USERS_LOGIN = 'login';
+export const CREATE_USERS_REGISTER = 'register';
 export const GET_MATCH_USERS = 'users/matching';
-export const CREATE_USERS_REGISTER = "register";

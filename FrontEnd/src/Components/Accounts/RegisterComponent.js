@@ -17,9 +17,8 @@ import {CREATE_USERS_REGISTER} from '../../APIConstants/ApiConstants'
 import {loginStyles} from "./loginStyles";
 import {withStyles} from "@material-ui/core/styles";
 import {
-    DatePicker,
-    KeyboardDatePicker,
-    MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+  MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
 import DateFnsUtils from "@date-io/date-fns"; // import
 
@@ -28,16 +27,15 @@ let password = ""
 let first_name = ""
 let last_name = ""
 let date_of_birth = ""
-
+ 
 
 
 class RegisterComponent extends React.Component {
 
-
+    
 
     handleForm = (event) => {
         event.preventDefault();
-        console.log(date_of_birth)
         return axiosInstance.post(CREATE_USERS_REGISTER,{
           "first_name" : first_name,
           "last_name" : last_name,
@@ -72,7 +70,7 @@ class RegisterComponent extends React.Component {
     }
 
 
-
+    
 
     render() {
       const {classes} = this.props;

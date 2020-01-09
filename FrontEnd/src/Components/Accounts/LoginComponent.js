@@ -17,8 +17,8 @@ import {POST_USERS_LOGIN} from '../../APIConstants/ApiConstants'
 import {loginStyles} from "./loginStyles";
 import {withStyles} from "@material-ui/core/styles";
 
-let user = ""
-let pass = ""
+let email = ""
+let password = ""
  
 
 
@@ -29,18 +29,18 @@ class LoginComponent extends React.Component {
     handleForm = (event) => {
         event.preventDefault();
         return axiosInstance.post(POST_USERS_LOGIN,{
-          "user" : user,
-          "pass" : pass
+          "email" : email,
+          "password" : password
         }).then(res => console.log(res))
           .catch(err => console.error(err))
       }
 
-    handleUser = (event) => {
-      user = event.target.value;
+    handleEmail = (event) => {
+      email = event.target.value;
     }
 
     handlePass = (event) => {
-      pass = event.target.value;
+      password = event.target.value;
     }
 
 
@@ -69,7 +69,7 @@ class LoginComponent extends React.Component {
                   name="email"
                   autoComplete="email"
                   autoFocus
-                  onChange = {(event) => this.handleUser(event)}
+                  onChange = {this.handleEmail}
                 />
                 <TextField
                   variant="outlined"
@@ -81,7 +81,7 @@ class LoginComponent extends React.Component {
                   type="password"
                   id="password"
                   autoComplete="current-password"
-                  onChange = {(event) => this.handlePass(event)}
+                  onChange = {this.handlePass}
                 />
                 <FormControlLabel
                   control={<Checkbox value="remember" color="primary" />}
@@ -104,7 +104,7 @@ class LoginComponent extends React.Component {
                     </Link>
                   </Grid>
                   <Grid item>
-                    <Link href="#" variant="body2">
+                    <Link href="/register" variant="body2">
                       {"Don't have an account? Sign Up"}
                     </Link>
                   </Grid>
