@@ -54,8 +54,8 @@ def match_users(request, id, theresehold):
 def login_view(request) :
     if(request.method == 'POST'):
          body = json.loads(request.body)
-         user = body["user"]
-         password = body["pass"]
+         user = body["email"]
+         password = body["password"]
          user = authenticate(username=user, password=password)
          if user is not None:
              print("User found, proceed to log in")
