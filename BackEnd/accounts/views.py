@@ -16,7 +16,7 @@ def login_view(request) :
          password = body["password"]
          user = authenticate(username=user, password=password)
          if user is not None:
-             print("User found, proceed to log in")
+             print(user.id)
          else : 
              print("Incorrect username or password")
 
