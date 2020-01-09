@@ -29,4 +29,5 @@ urlpatterns = [
     path('resolution/delete_resolution/<id>', delete_resolution),
     path('resolution/update_resolution_name/<id>', update_resolution_name),
     path('login',login_view),
+    path('register',register_view),
 ]
