@@ -23,10 +23,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('products/',get_products,name="products"),
     path('save_product/',save_product),
-    path('resolution/get_resolutions', get_resolutions),
+    path('resolution/get_resolutions/<int:id>', get_resolutions),
     path('resolution/update_resolution_done/<id>', update_resolution_done),
     path('resolution/create_resolution/', create_resolution),
     path('resolution/delete_resolution/<id>', delete_resolution),
     path('resolution/update_resolution_name/<id>', update_resolution_name),
     path('login',login_view),
+    path('users/matching/<id>/<theresehold>', match_users)
 ]

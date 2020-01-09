@@ -11,26 +11,61 @@ import {matchingComponentStyles} from "./matchingComponentStyles";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import EditIcon from "@material-ui/core/SvgIcon/SvgIcon";
 import IconButton from "@material-ui/core/IconButton";
+import axiosInstance from "../../Axios/AxiosInstance";
+import {GET_MATCH_USERS, GET_RESOLUTIONS} from "../../APIConstants/ApiConstants";
+import SnackbarComponent from "./SnackbarComponent";
 
 
 class MatchingComponent extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            matched_users: [],
+            open_snackbar: false,
+            email_snackbar: ""
+        }
     }
 
-    handleClick = () =>{
+    componentDidMount() {
+        let matched_users_from_api = [];
+        axiosInstance.get(GET_MATCH_USERS + "/1" + "/1").then(
+            (res) => {
+                res.data.forEach(element =>
+                    matched_users_from_api.push(element)
+                );
+                this.setState({matched_users: matched_users_from_api})
+            }
+        )
+    }
+
+    handleShowEmail = (email) => {
+        this.setState({
+            email_snackbar: email,
+            open_snackbar: true,
+        });
+    };
+
+    handleCloseSnackbar = () => {
+        console.log("salutarebaietii");
+        this.setState({
+            open_snackbar: false
+        })
+    };
+
+    handleClick = () => {
         window.location.href = "/main"
     };
 
     render() {
         const {classes} = this.props;
+        console.log(this.state);
         return (
             <React.Fragment>
                 <AppBar position="static">
 
                     <Toolbar>
-                        <IconButton  size ="small" className ={classes.marginNegative}>
+                        <IconButton size="small" className={classes.marginNegative}>
                             <ArrowBackIcon onClick={this.handleClick} fontSize="small"/>
                         </IconButton>
                         <Typography variant="h6">
@@ -65,7 +100,9 @@ class MatchingComponent extends React.Component {
                           justify="flex-start"
                           alignItems="center" item xs={9} className={classes.padding}>
 
-                        <CardComponent cards={["1", "2", "3", "4", "5", "6", "7", "8"]}/>
+                        <CardComponent cards={this.state.matched_users} handleEmail={this.handleShowEmail}/>
+                        <SnackbarComponent open={this.state.open_snackbar} email_snackbar={this.state.email_snackbar}
+                                           handleClose={this.handleCloseSnackbar}/>
                     </Grid>
                 </Grid>
 

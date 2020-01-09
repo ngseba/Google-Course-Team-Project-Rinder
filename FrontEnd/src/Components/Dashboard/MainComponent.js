@@ -30,10 +30,10 @@ class MainComponent extends React.Component {
         }
 
     }
-
+    //TODO get the actual id from local storage
     refreshValues = () => {
         let resolutionsAPI = [];
-        axiosInstance.get(GET_RESOLUTIONS).then(
+        axiosInstance.get(GET_RESOLUTIONS + "/1").then(
             (res) => {
                 res.data.forEach(element =>
                     resolutionsAPI.push(element)
@@ -120,11 +120,11 @@ class MainComponent extends React.Component {
                                     Your resolutions
                                 </Typography>
 
-                                <IconButton size ="small" edge="end" aria-label="" className={classes.title}>
+                                <IconButton size="small" edge="end" aria-label="" className={classes.title}>
                                     <AccessibilityNewIcon fontSize="large" color="secondary"
                                                           onClick={this.handleRedirect}/>
                                 </IconButton>
-                                <IconButton  size ="small" edge="end" aria-label="" className={classes.title}>
+                                <IconButton size="small" edge="end" aria-label="" className={classes.title}>
                                     <Avatar className={classes.avatar}>
                                         {//TODO INSERT NAME HERE
                                             //
