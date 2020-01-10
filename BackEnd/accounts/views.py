@@ -76,3 +76,9 @@ def register_view(request):
         date_of_birth = date_of_birth.split('T', 1)[0]
         get_user_model().objects.create_user(email, name, date_of_birth, password)
     return HttpResponse('')
+
+
+def get_first_names(request, id):
+    my_user = User.objects.get(id=id)
+    return JsonResponse(my_user.name.split(), safe = False)
+

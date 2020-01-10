@@ -23,7 +23,8 @@ class MatchingComponent extends React.Component {
         this.state = {
             matched_users: [],
             open_snackbar: false,
-            email_snackbar: ""
+            email_snackbar: "",
+            noCards:false
         }
     }
 
@@ -60,7 +61,7 @@ class MatchingComponent extends React.Component {
                 res.data.forEach(element =>
                     matched_users_from_api.push(element)
                 );
-                this.setState({matched_users: matched_users_from_api})
+                this.setState({matched_users: matched_users_from_api, noCards:true})
             }
         )
     };
@@ -94,6 +95,7 @@ class MatchingComponent extends React.Component {
                             common with your potential matches
                         </Typography>
                         <Slider
+                            className={classes.slider}
                             defaultValue={2}
                             aria-labelledby="discrete-slider"
                             valueLabelDisplay="auto"
@@ -110,7 +112,7 @@ class MatchingComponent extends React.Component {
                           justify="flex-start"
                           alignItems="center" item xs={9} className={classes.padding}>
 
-                        <CardComponent cards={this.state.matched_users} handleEmail={this.handleShowEmail}/>
+                        <CardComponent cards={this.state.matched_users} noCards = {this.state.noCards} handleEmail={this.handleShowEmail}/>
                         <SnackbarComponent open={this.state.open_snackbar} email_snackbar={this.state.email_snackbar}
                                            handleClose={this.handleCloseSnackbar}/>
                     </Grid>
