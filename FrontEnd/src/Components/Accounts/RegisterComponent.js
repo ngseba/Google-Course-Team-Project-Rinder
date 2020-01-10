@@ -36,6 +36,16 @@ let date_of_birth = ""
 
 class RegisterComponent extends React.Component {
 
+    isAuthenticated =() => {
+      if(localStorage.getItem("user_id")){
+         window.location.href = "/main"
+    }
+  }
+
+
+    componentDidMount(){
+        this.isAuthenticated()
+    }
 
     handleForm = (event) => {
         event.preventDefault();

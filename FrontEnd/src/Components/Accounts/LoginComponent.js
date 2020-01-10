@@ -24,6 +24,17 @@ let password = ""
 class LoginComponent extends React.Component {
 
 
+    isAuthenticated =() => {
+        if(localStorage.getItem("user_id")){
+           window.location.href = "/main"
+      }
+    }
+  
+  
+      componentDidMount(){
+          this.isAuthenticated()
+      }
+
     handleForm = (event) => {
         event.preventDefault();
         return axiosInstance.post(POST_USERS_LOGIN, {

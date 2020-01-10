@@ -27,8 +27,16 @@ class MatchingComponent extends React.Component {
             noCards:false
         }
     }
+    
+    isAuthenticated = () => {
+        if(!localStorage.getItem("user_id"))
+        {
+            window.location.href = "/login"
+        }
+    }
 
     componentDidMount() {
+        this.isAuthenticated();
 
     }
 

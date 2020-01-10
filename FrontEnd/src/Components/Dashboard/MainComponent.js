@@ -38,6 +38,13 @@ class MainComponent extends React.Component {
 
     }
 
+    isAuthenticated = () => {
+        if(!localStorage.getItem("user_id"))
+        {
+            window.location.href = "/login"
+        }
+    }
+
     refreshValues = () => {
         let resolutionsAPI = [];
         axiosInstance.get(GET_RESOLUTIONS + "/" + localStorage.getItem("user_id")).then(
@@ -52,6 +59,7 @@ class MainComponent extends React.Component {
 
 
     componentDidMount() {
+        this.isAuthenticated();
         this.refreshValues();
         axiosInstance.get(GET_USERS_FIRST + "/" + localStorage.getItem("user_id")).then((res) => {
             let name = "";
