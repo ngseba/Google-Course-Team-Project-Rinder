@@ -33,7 +33,7 @@ class MainComponent extends React.Component {
     //TODO get the actual id from local storage
     refreshValues = () => {
         let resolutionsAPI = [];
-        axiosInstance.get(GET_RESOLUTIONS + "/1").then(
+        axiosInstance.get(GET_RESOLUTIONS + "/" + localStorage.getItem("user_id")).then(
             (res) => {
                 res.data.forEach(element =>
                     resolutionsAPI.push(element)
