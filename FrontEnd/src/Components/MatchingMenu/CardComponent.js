@@ -10,32 +10,45 @@ import CardContent from "@material-ui/core/CardContent";
 
 
 const CardComponent = (props) => {
-    //todo
+
     const {classes} = props;
+    if (props.noCards === true) {
+        if (props.cards.length === 0) {
+            return (<Card>
+                <CardContent>
+                    <Typography variant="body2" color="textPrimary" component="p">
+                        No matching users found. Try to lower the threshold
+                    </Typography>
+                </CardContent>
+            </Card>)
+        } else {
 
-    return props.cards.map(card => (
+            return props.cards.map(card => (
 
-            <Card className={classes.card}>
-                <CardActionArea>
-                    <CardContent>
-                        <Typography gutterBottom variant="h5" component="h2">
-                            {card.name}
-                        </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                            {card.description}
-                        </Typography>
-                    </CardContent>
-                </CardActionArea>
-                <CardActions>
-                    <Button size="small" color="primary" onClick = {()=>props.handleEmail(card.email)}>
-                        Show email
-                    </Button>
-                </CardActions>
-            </Card>
+                    <Card className={classes.card}>
+                        <CardContent>
+                            <Typography gutterBottom variant="h5" component="h2">
+                                {card.name}
+                            </Typography>
+                            <Typography variant="body2" color="textSecondary" component="p">
+                                {card.description}
+                            </Typography>
+                        </CardContent>
+                        <CardActions>
+                            <Button size="small" color="primary" onClick={() => props.handleEmail(card.email)}>
+                                Show email
+                            </Button>
+                        </CardActions>
+                    </Card>
 
 
-        )
-    )
+                )
+            )
+        }
+    }else{
+        return ("");
+    }
+
 };
 
 export default withStyles(cardComponentStyles)(CardComponent)

@@ -9,8 +9,11 @@ export const matchingComponentStyles = (theme) => ({
         flexGrow: 1,
     },
     marginNegative:{
-        marginLeft:-8,
-        marginRight:8
+        marginLeft:-16,
+        marginRight:16
+    },
+    slider:{
+        marginTop:40
     }
 
 

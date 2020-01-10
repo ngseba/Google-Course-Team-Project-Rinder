@@ -11,26 +11,27 @@ import EditIcon from "@material-ui/icons/Edit"
 let i = 0;
 const ListComponent = (props) => {
     return props.list.map(resolution => (
-        <React.Fragment>
-            <ListItem key = {i++} button>
-                <Checkbox
-                    checked={resolution.done}
-                    onChange={()=>props.handleChange(resolution.id)}
-                    value="primary"
-                />
-                <ListItemText primary={resolution.name}/>
-                <ListItemSecondaryAction>
-                    <IconButton  edge="end" aria-label="update" onClick = {() => props.updateResolution(resolution)}>
-                        <EditIcon />
-                    </IconButton>
+            <React.Fragment>
+                <ListItem key={i++} button>
+                    <Checkbox
+                        checked={resolution.done}
+                        onChange={() => props.handleChange(resolution.id)}
+                        value="primary"
+                    />
+                    <ListItemText primary={resolution.name}
+                                  secondary={resolution.tags.split(' ').map(tag => (tag = "#" + tag + " "))}/>
+                    <ListItemSecondaryAction>
+                        <IconButton edge="end" aria-label="update" onClick={() => props.updateResolution(resolution)}>
+                            <EditIcon/>
+                        </IconButton>
 
-                    <IconButton edge="end" aria-label="delete" onClick = {() => props.deleteResolution(resolution.id)}>
-                        <DeleteIcon />
-                    </IconButton>
-                </ListItemSecondaryAction>
-            </ListItem>
-            <Divider />
-        </React.Fragment>
+                        <IconButton edge="end" aria-label="delete" onClick={() => props.deleteResolution(resolution.id)}>
+                            <DeleteIcon/>
+                        </IconButton>
+                    </ListItemSecondaryAction>
+                </ListItem>
+                <Divider/>
+            </React.Fragment>
         )
     )
 

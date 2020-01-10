@@ -5,7 +5,12 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import ListComponent from "./ListComponent";
 import List from "@material-ui/core/List";
-import {DELETE_RESOLUTION, GET_RESOLUTIONS, UPDATE_RESOLUTIONS_DONE} from "../../APIConstants/ApiConstants";
+import {
+    DELETE_RESOLUTION,
+    GET_RESOLUTIONS,
+    GET_USERS_FIRST,
+    UPDATE_RESOLUTIONS_DONE
+} from "../../APIConstants/ApiConstants";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add"
 import {mainStyles} from "./mainStyles";
@@ -16,6 +21,7 @@ import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import AccessibilityNewIcon from '@material-ui/icons/AccessibilityNew';
 import Avatar from "@material-ui/core/Avatar";
+import Container from "@material-ui/core/Container";
 
 
 class MainComponent extends React.Component {
@@ -27,10 +33,11 @@ class MainComponent extends React.Component {
             openModal: false,
             openModalEdit: {id: 0, open: false},
             resolutionEdit: {name: "", tags: ""},
+            initials: ""
         }
 
     }
-    //TODO get the actual id from local storage
+
     refreshValues = () => {
         let resolutionsAPI = [];
         axiosInstance.get(GET_RESOLUTIONS + "/" + localStorage.getItem("user_id")).then(
@@ -46,12 +53,20 @@ class MainComponent extends React.Component {
 
     componentDidMount() {
         this.refreshValues();
+        axiosInstance.get(GET_USERS_FIRST + "/" + localStorage.getItem("user_id")).then((res) => {
+            let name = "";
+            res.data.forEach(word => {
+                name = name + word.charAt(0);
+            });
+            this.setState({initials: name.toUpperCase()})
+        }).catch((err) => {
+
+        });
+
     }
 
     handleChange = (id) => {
         axiosInstance.put(UPDATE_RESOLUTIONS_DONE + id).then(() => {
-
-                //TODO: Do not call api, retain all the values of the checkboxes and negate them
                 this.refreshValues();
             }
         ).catch(
@@ -80,7 +95,6 @@ class MainComponent extends React.Component {
         this.setState({
             openModal: !this.state.openModal
         });
-        //TODO: Do not call api, append
         this.refreshValues();
 
     };
@@ -121,15 +135,15 @@ class MainComponent extends React.Component {
                                 </Typography>
 
                                 <IconButton size="small" edge="end" aria-label="" className={classes.title}>
-                                    <AccessibilityNewIcon fontSize="large" color="secondary"
+                                    <AccessibilityNewIcon fontSize="large" color="textSecondary"
                                                           onClick={this.handleRedirect}/>
                                 </IconButton>
                                 <IconButton size="small" edge="end" aria-label="" className={classes.title}>
                                     <Avatar className={classes.avatar}>
-                                        {//TODO INSERT NAME HERE
-                                            //
+                                        {
+                                            this.state.initials
                                         }
-                                        LB
+
                                     </Avatar>
                                 </IconButton>
 
@@ -137,12 +151,14 @@ class MainComponent extends React.Component {
                         </Grid>
                     </AppBar>
                 </div>
+
                 <List>
                     <ListComponent list={this.state.resolutions}
                                    handleChange={this.handleChange}
                                    updateResolution={this.updateResolution}
                                    deleteResolution={this.deleteResolution}/>
                 </List>
+
                 <Fab className={classes.fab} color="primary" aria-label="add" variant="extended"
                      onClick={this.handleModal}>
                     <AddIcon/> &nbsp;

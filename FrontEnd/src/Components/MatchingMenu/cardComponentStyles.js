@@ -5,6 +5,7 @@ export const cardComponentStyles = (theme) => ({
         height:'auto',
         padding:8,
         margin:8
-    }
+    },
+
 
 });
