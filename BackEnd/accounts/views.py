@@ -51,27 +51,28 @@ def match_users(request, id, theresehold):
 
 
 @csrf_exempt
-def login_view(request) :
-    if(request.method == 'POST'):
-         body = json.loads(request.body)
-         user = body["email"]
-         password = body["password"]
-         user = authenticate(username=user, password=password)
-         if user is not None:
-             print("User found, proceed to log in")
-         else : 
-             print("Incorrect username or password")
+def login_view(request):
+    if (request.method == 'POST'):
+        body = json.loads(request.body)
+        user = body["email"]
+        password = body["password"]
+        user = authenticate(username=user, password=password)
+        if user is not None:
+            return JsonResponse(user.id, safe=False)
+        else:
+            print("Incorrect username or password")
 
     return HttpResponse('')
 
+
 @csrf_exempt
-def register_view(request) :
-    if(request.method == 'POST') :
+def register_view(request):
+    if (request.method == 'POST'):
         body = json.loads(request.body)
         email = body["email"]
         password = body["password"]
         name = body["first_name"] + " " + body["last_name"]
         date_of_birth = body["date_of_birth"]
-        date_of_birth = date_of_birth.split('T',1)[0]
-        get_user_model().objects.create_user(email,name,date_of_birth,password)
+        date_of_birth = date_of_birth.split('T', 1)[0]
+        get_user_model().objects.create_user(email, name, date_of_birth, password)
     return HttpResponse('')

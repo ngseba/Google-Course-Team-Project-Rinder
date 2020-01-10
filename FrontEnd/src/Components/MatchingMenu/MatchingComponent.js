@@ -15,7 +15,7 @@ import axiosInstance from "../../Axios/AxiosInstance";
 import {GET_MATCH_USERS, GET_RESOLUTIONS} from "../../APIConstants/ApiConstants";
 import SnackbarComponent from "./SnackbarComponent";
 
-
+let slider_value = 1;
 class MatchingComponent extends React.Component {
 
     constructor(props) {
@@ -28,15 +28,7 @@ class MatchingComponent extends React.Component {
     }
 
     componentDidMount() {
-        let matched_users_from_api = [];
-        axiosInstance.get(GET_MATCH_USERS + "/1" + "/1").then(
-            (res) => {
-                res.data.forEach(element =>
-                    matched_users_from_api.push(element)
-                );
-                this.setState({matched_users: matched_users_from_api})
-            }
-        )
+
     }
 
     handleShowEmail = (email) => {
@@ -55,6 +47,22 @@ class MatchingComponent extends React.Component {
 
     handleClick = () => {
         window.location.href = "/main"
+    };
+
+    handleSliderChange = (event, value) =>{
+        slider_value = value;
+    };
+
+    startMatching = () => {
+        let matched_users_from_api = [];
+        axiosInstance.get(GET_MATCH_USERS + "/" + localStorage.getItem("user_id") + "/" + slider_value).then(
+            (res) => {
+                res.data.forEach(element =>
+                    matched_users_from_api.push(element)
+                );
+                this.setState({matched_users: matched_users_from_api})
+            }
+        )
     };
 
     render() {
@@ -81,7 +89,8 @@ class MatchingComponent extends React.Component {
                 >
                     <Grid item xs={3} className={classes.padding}>
                         <Typography variant="body1">
-                            Choose a threshold to begin. The thresehold specifies how many tags should you have in
+                            Choose a threshold to begin.
+                            The threshold specifies how many tags should you have in
                             common with your potential matches
                         </Typography>
                         <Slider
@@ -90,10 +99,11 @@ class MatchingComponent extends React.Component {
                             valueLabelDisplay="auto"
                             step={1}
                             marks
+                            onChange = {this.handleSliderChange}
                             min={1}
                             max={5}
                         />
-                        <Button variant="contained" color="primary">Start matching</Button>
+                        <Button variant="contained" color="primary" onClick={this.startMatching}>Start matching</Button>
                     </Grid>
                     <Grid container
                           direction="row"
